@@ -15,46 +15,51 @@
 <body class="text-slate-800 pb-20">
 
   <!-- 상단 고정 헤더 & 필터 영역 -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-20 shadow-sm">
-    <div class="max-w-5xl mx-auto px-4 py-5">
+  <!-- 상단 헤더 & 필터 영역 (고정 해제하여 화면 가림 해결 + 구글 스타일 대형 검색창) -->
+  <header class="bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-7">
       
-      <!-- 타이틀 & 전체 검색창 -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
-        <div>
-          <h1 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-            🌲 마음숲 심리코칭 맞춤 영상 라이브러리
-          </h1>
-          <p class="text-xs text-slate-500 mt-0.5">실제 채널 데이터 기반 내담자 맞춤 영상 처방 및 카톡 상담멘트 복사 툴</p>
-        </div>
-        <div class="relative w-full md:w-80">
-          <input type="text" id="searchInput" placeholder="증상, 키워드, 제목으로 전체 검색..." 
-            class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm transition">
-          <span class="absolute left-3 top-2.5 text-slate-400 text-sm">🔍</span>
+      <!-- 1. 중앙 타이틀 & 구글 스타일 대형 글로벌 검색창 -->
+      <div class="flex flex-col items-center text-center mb-7">
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-2 tracking-tight">
+          🌲 마음숲 심리코칭 맞춤 영상 라이브러리
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1.5 mb-5">
+          실제 채널 데이터 기반 내담자 맞춤 영상 처방 및 카톡 상담멘트 원클릭 복사 툴
+        </p>
+        
+        <!-- 구글 스타일 대형 검색바 -->
+        <div class="relative w-full max-w-2xl">
+          <span class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">🔍</span>
+          <input type="text" id="searchInput" placeholder="증상, 키워드, 제목, 상담멘트로 전체 검색... (예: 등교거부, 스마트폰, 자해, 불안)" 
+            class="w-full pl-12 pr-5 py-3.5 sm:py-4 rounded-full border-2 border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-sm sm:text-base shadow-sm transition">
         </div>
       </div>
 
-      <!-- 1. 대분류 카테고리 (실제 데이터 기반 7개 분류) -->
-      <div class="flex items-center gap-1.5 flex-wrap mb-3">
-        <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 font-bold text-xs rounded-md mr-1">주제별 분류</span>
-        <button onclick="setCategory('전체')" class="cat-btn tag-active px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">전체보기</button>
-        <button onclick="setCategory('등교거부·자퇴·은둔')" class="cat-btn px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">🚪 등교거부·자퇴·은둔</button>
-        <button onclick="setCategory('일탈·중독·위기행동')" class="cat-btn px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">⚡ 일탈·중독·위기행동</button>
-        <button onclick="setCategory('학습부진·무기력·꼼즈')" class="cat-btn px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">📚 학습부진·무기력·꼼즈</button>
-        <button onclick="setCategory('부모 내면치유·트라우마')" class="cat-btn px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">🧘‍♀️ 부모 내면치유·트라우마</button>
-        <button onclick="setCategory('엄마의 말공부·가족관계')" class="cat-btn px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">🗣️ 엄마의 말공부·가족관계</button>
-        <button onclick="setCategory('실제 상담사례·답글라디오')" class="cat-btn px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">📻 실제 상담사례·답글라디오</button>
-        <button onclick="setCategory('독서치유·전문가과정')" class="cat-btn px-3 py-1 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">📖 독서치유·전문가과정</button>
-      </div>
+      <!-- 2. 주제별 분류 & 상담 핵심키워드 박스 -->
+      <div class="bg-slate-50/80 p-4 rounded-2xl border border-slate-200/80 space-y-3">
+        <!-- 대분류 카테고리 (7개 분류) -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span class="px-2.5 py-1 bg-indigo-100 text-indigo-800 font-bold text-xs rounded-md mr-1">주제별 분류</span>
+          <button onclick="setCategory('전체')" class="cat-btn tag-active px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">전체보기</button>
+          <button onclick="setCategory('등교거부·자퇴·은둔')" class="cat-btn px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">🚪 등교거부·자퇴·은둔</button>
+          <button onclick="setCategory('일탈·중독·위기행동')" class="cat-btn px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">⚡ 일탈·중독·위기행동</button>
+          <button onclick="setCategory('학습부진·무기력·꼼즈')" class="cat-btn px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">📚 학습부진·무기력·꼼즈</button>
+          <button onclick="setCategory('부모 내면치유·트라우마')" class="cat-btn px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">🧘‍♀️ 부모 내면치유·트라우마</button>
+          <button onclick="setCategory('엄마의 말공부·가족관계')" class="cat-btn px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">🗣️ 엄마의 말공부·가족관계</button>
+          <button onclick="setCategory('실제 상담사례·답글라디오')" class="cat-btn px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">📻 실제 상담사례·답글라디오</button>
+          <button onclick="setCategory('독서치유·전문가과정')" class="cat-btn px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-700 hover:bg-slate-100 transition">📖 독서치유·전문가과정</button>
+        </div>
 
-      <!-- 2. 상담 핵심키워드 -->
-      <div class="flex items-center gap-1.5 flex-wrap">
-        <span class="px-2.5 py-1 bg-amber-50 text-amber-800 font-bold text-xs rounded-md mr-1">상담 핵심키워드</span>
-        <div id="keywordContainer" class="flex items-center gap-1.5 flex-wrap"></div>
+        <!-- 상담 핵심키워드 -->
+        <div class="flex items-center gap-1.5 flex-wrap pt-1 border-t border-slate-200/60">
+          <span class="px-2.5 py-1 bg-amber-100 text-amber-900 font-bold text-xs rounded-md mr-1">상담 핵심키워드</span>
+          <div id="keywordContainer" class="flex items-center gap-1.5 flex-wrap"></div>
+        </div>
       </div>
 
     </div>
   </header>
-
   <!-- 메인 콘텐츠 영역 -->
   <main class="max-w-5xl mx-auto px-4 mt-5">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-600 mb-4 gap-1">
