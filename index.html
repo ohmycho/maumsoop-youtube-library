@@ -4818,12 +4818,38 @@
       }
     }
 
+    let descriptionFrame = null;
+
+    function scheduleDescriptionCheck() {
+      if (descriptionFrame !== null) cancelAnimationFrame(descriptionFrame);
+      descriptionFrame = requestAnimationFrame(() => {
+        descriptionFrame = null;
+        updateDescriptionButtons();
+      });
+    }
+
+    function updateDescriptionButtons() {
+      document.querySelectorAll("[data-description]").forEach(desc => {
+        const btn = document.getElementById(desc.dataset.buttonId);
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        // 펼쳐진 설명도 잠시 두 줄로 제한해 실제 잘림 여부 확인
+        desc.classList.add("line-clamp-2");
+        const truncated = desc.scrollHeight > desc.clientHeight + 1;
+        btn.classList.toggle("hidden", !truncated);
+        if (truncated && expanded) desc.classList.remove("line-clamp-2");
+        const isExpanded = truncated && expanded;
+        btn.setAttribute("aria-expanded", String(isExpanded));
+        btn.innerText = isExpanded ? "설명 접기 ▴" : "설명 더보기 ▾";
+      });
+    }
+
     function toggleDesc(id) {
       const desc = document.getElementById(`desc_${id}`);
       const btn = document.getElementById(`descBtn_${id}`);
-      const isClamped = desc.classList.contains("line-clamp-2");
-      desc.classList.toggle("line-clamp-2", !isClamped);
-      btn.innerText = isClamped ? "설명 접기 ▴" : "설명 더보기 ▾";
+      const expanded = btn.getAttribute("aria-expanded") !== "true";
+      desc.classList.toggle("line-clamp-2", !expanded);
+      btn.setAttribute("aria-expanded", String(expanded));
+      btn.innerText = expanded ? "설명 접기 ▴" : "설명 더보기 ▾";
     }
 
     function toggleCounselBox(id) {
@@ -4903,8 +4929,8 @@
 
               <!-- 3순위: 설명 기본 2줄 + 펼치기 -->
               <div class="mb-3">
-                <p id="desc_${item.id}" class="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">${item.description}</p>
-                <button id="descBtn_${item.id}" onclick="toggleDesc('${item.id}')" class="text-[11px] text-slate-400 hover:text-slate-600 font-medium mt-0.5">
+                <p id="desc_${item.id}" data-description data-button-id="descBtn_${item.id}" class="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">${item.description}</p>
+                <button id="descBtn_${item.id}" type="button" aria-expanded="false" aria-controls="desc_${item.id}" onclick="toggleDesc('${item.id}')" class="hidden text-[11px] text-slate-400 hover:text-slate-600 font-medium mt-0.5">
                   설명 더보기 ▾
                 </button>
               </div>
@@ -4953,6 +4979,7 @@
           </div>
         </article>
       `}).join("");
+      scheduleDescriptionCheck();
     }
 
     // 수정된 상담문구 + 링크 복사 (복사 실패 시 대체 프롬프트 제공)
@@ -5014,6 +5041,10 @@
       if (lastFocusedElement) lastFocusedElement.focus();
     }
 
+    window.addEventListener("resize", scheduleDescriptionCheck);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleDescriptionCheck);
+    }
     init();
   </script>
 </body>
