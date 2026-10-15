@@ -30,15 +30,12 @@
         <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-2 tracking-tight">
           🌲 마음숲 심리코칭 영상 라이브러리
         </h1>
-        <p class="text-xs sm:text-sm text-slate-500 mt-1.5 mb-5">
-          내담자 맞춤 영상을 찾아 상담 문구를 확인·수정한 뒤 카톡으로 바로 전달하세요
-        </p>
         
         <div class="relative w-full max-w-2xl">
           <label for="searchInput" class="sr-only">영상 통합 검색</label>
           <span class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-lg" aria-hidden="true">🔍</span>
           <input type="search" id="searchInput" aria-label="증상, 키워드, 제목, 상담멘트로 전체 검색"
-            placeholder="증상, 키워드, 제목, 상담문구로 검색... (예: 등교거부, 스마트폰, 자해)" 
+            placeholder="검색어 입력 또는 아래 버튼 중 하나만 선택해도 바로 검색됩니다." 
             class="w-full pl-12 pr-10 py-3.5 sm:py-4 rounded-full border-2 border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:outline-none focus:border-emerald-700 focus:ring-4 focus:ring-emerald-700/10 text-sm sm:text-base shadow-sm transition">
           <button id="clearSearchBtn" onclick="clearSearch()" aria-label="검색어 지우기"
             class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-sm font-bold">✕</button>
@@ -4664,6 +4661,21 @@
 
       searchInput.addEventListener("input", (e) => {
         searchQuery = e.target.value.trim().toLowerCase();
+
+        // 검색어 입력 시 주제와 키워드 필터 초기화
+        if (searchQuery.length > 0) {
+          currentCategory = "전체";
+          currentKeyword = "";
+          document.querySelectorAll(".cat-btn").forEach((btn, idx) => {
+            btn.classList.toggle("tag-active", idx === 0);
+            btn.setAttribute("aria-pressed", String(idx === 0));
+          });
+          document.querySelectorAll(".kw-btn").forEach(btn => {
+            btn.classList.remove("kw-active");
+            btn.setAttribute("aria-pressed", "false");
+          });
+        }
+
         clearBtn.classList.toggle("hidden", !searchQuery);
         updateActiveFilterBar();
         renderCards();
@@ -4711,6 +4723,12 @@
 
     function setCategory(cat) {
       currentCategory = cat;
+
+      // 버튼 클릭 시 텍스트 검색 초기화
+      searchQuery = "";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("clearSearchBtn").classList.add("hidden");
+
       document.querySelectorAll(".cat-btn").forEach(btn => {
         const isActive = btn.innerText.includes(cat) || (cat === '전체' && btn.innerText === '전체보기');
         btn.classList.toggle("tag-active", isActive);
@@ -4722,6 +4740,12 @@
 
     function toggleKeyword(kw) {
       currentKeyword = (currentKeyword === kw) ? "" : kw;
+
+      // 버튼 클릭 시 텍스트 검색 초기화
+      searchQuery = "";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("clearSearchBtn").classList.add("hidden");
+
       document.querySelectorAll(".kw-btn").forEach(btn => {
         const isActive = (btn.dataset.kw === currentKeyword);
         btn.classList.toggle("kw-active", isActive);
