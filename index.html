@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>마음숲 심리코칭 영상 라이브러리</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
     }
   </style>
 </head>
-<body class="text-slate-800 pb-24">
+<body class="text-slate-800 pb-24 overflow-x-hidden">
 
   <!-- 상단 헤더 & 검색/필터 영역 -->
   <header class="bg-white border-b border-slate-200 shadow-sm">
@@ -4878,7 +4878,7 @@
                     💬 전달할 카톡 상담 문구 (필요시 내용을 수정한 뒤 아래 복사 버튼을 누르세요)
                   </label>
                   <textarea id="counselInput_${item.id}" rows="3" 
-                    class="w-full p-2.5 text-xs sm:text-sm text-slate-800 bg-white border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 leading-relaxed">${item.counselText}</textarea>
+                    class="w-full p-2.5 text-[16px] sm:text-sm text-slate-800 bg-white border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 leading-relaxed">${item.counselText}</textarea>
                 </div>
               </div>
             </div>
