@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!--
   마음숲 라이브러리 (예전 이름: 마음숲 영상 라이브러리)
-  버전: v1.5.3 (2026-11-09)
+  버전: v1.6 (2026-11-16)
+  v1.6 마음숲 토크 연결: 검색창 위 한 줄 안내, 영상 창 아래 '털어놓기' 버튼(보던 영상을 토크에 전달, 들어온 길 from=library)
   v1.5.3 링크 미리보기(og.png·설명) 추가
   v1.5.2 새 아이콘(새싹+펼친 책): 파비콘·홈 화면 아이콘·맨 위 로고
   v1.5.1 이름을 '마음숲 라이브러리'로
@@ -17,7 +18,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="version" content="v1.5">
+  <meta name="version" content="v1.6">
   <title>마음숲 라이브러리</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -58,6 +59,7 @@
           <img src="/favicon.svg" alt="" style="width:36px;height:36px;border-radius:10px;flex:none"><span><span style="color:#2F5D46">마음숲</span> 라이브러리</span>
         </h1>
         
+        <a href="https://talk.maumsoop.com/?from=library" target="_blank" rel="noopener" style="display:block;width:100%;max-width:42rem;margin:0 0 12px;padding:10px 14px;border-radius:12px;background:#eef5f0;border:1px solid #cfe3d6;color:#2F5D46;font-size:14px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center">🌙 혼자 버거울 때, <b>마음숲 토크</b>에 털어놓기 →</a>
         <div class="relative w-full max-w-2xl">
           <label for="searchInput" class="sr-only">영상 통합 검색</label>
           <span class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-lg" aria-hidden="true">🔍</span>
@@ -68,7 +70,7 @@
             class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-sm font-bold">✕</button>
         </div>
         <p class="mt-2 text-xs text-slate-500">예: 등교거부, 스마트폰, 자존감 · 입력하면 바로 검색됩니다.</p>
-        <p style="margin-top:4px;font-size:10px;color:#94a3b8;">v1.5.3 · 2026.11.09</p>
+        <p style="margin-top:4px;font-size:10px;color:#94a3b8;">v1.6 · 2026.11.16</p>
       </div>
 
       <!-- 2. 모바일용 필터 토글 버튼 (모바일에서만 노출) -->
@@ -149,6 +151,8 @@
       <div class="aspect-video w-full bg-black">
         <iframe id="youtubeFrame" class="w-full h-full" src="" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
+      <!-- v1.6: 보던 영상과 함께 마음숲 토크로 (openModal에서 주소에 영상 ID를 붙임) -->
+      <a id="talkLink" href="https://talk.maumsoop.com/?from=library" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:#0f172a;color:#fff;font-size:14px;text-decoration:none;border-top:1px solid #1e293b"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">이 영상 보고 마음이 복잡해졌다면</span><span style="flex:none;font-weight:700;color:#B9D3C1">털어놓기 →</span></a>
     </div>
   </div>
 
@@ -1175,6 +1179,8 @@
     }
 
     function openModal(ytId, title, triggerEl) {
+      var talkLink = document.getElementById("talkLink");
+      if (talkLink) talkLink.href = "https://talk.maumsoop.com/?from=library&v=" + encodeURIComponent(ytId);
       lastFocusedElement = triggerEl || document.activeElement;
       document.getElementById("modalTitle").innerText = title;
       document.getElementById("youtubeFrame").src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
