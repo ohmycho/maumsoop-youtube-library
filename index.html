@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!--
   마음숲 라이브러리 (예전 이름: 마음숲 영상 라이브러리)
-  버전: v1.6 (2026-11-16)
+  버전: v1.6.1 (2026-11-18) — 구글 애널리틱스(G-8RPRY677HC): 방문·영상 재생·문구 복사·토크 연결 클릭 수
+  v1.6 (2026-11-16)
   v1.6 마음숲 토크 연결: 검색창 위 한 줄 안내, 영상 창 아래 '털어놓기' 버튼(보던 영상을 토크에 전달, 들어온 길 from=library)
   v1.5.3 링크 미리보기(og.png·설명) 추가
   v1.5.2 새 아이콘(새싹+펼친 책): 파비콘·홈 화면 아이콘·맨 위 로고
@@ -18,7 +19,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="version" content="v1.6">
+  <meta name="version" content="v1.6.1">
   <title>마음숲 라이브러리</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -46,6 +47,9 @@
       overflow: hidden;
     }
   </style>
+<!-- 구글 애널리틱스 (마음숲심리코칭 · G-8RPRY677HC) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8RPRY677HC"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8RPRY677HC');</script>
 </head>
 <body class="text-slate-800 pb-24 overflow-x-hidden">
 
@@ -70,7 +74,7 @@
             class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-sm font-bold">✕</button>
         </div>
         <p class="mt-2 text-xs text-slate-500">예: 등교거부, 스마트폰, 자존감 · 입력하면 바로 검색됩니다.</p>
-        <p style="margin-top:4px;font-size:10px;color:#94a3b8;">v1.6 · 2026.11.16</p>
+        <p style="margin-top:4px;font-size:10px;color:#94a3b8;">v1.6.1 · 2026.11.18 · 이용 통계: 구글 애널리틱스</p>
       </div>
 
       <!-- 2. 모바일용 필터 토글 버튼 (모바일에서만 노출) -->
@@ -1204,5 +1208,36 @@
     }
     init();
   </script>
+
+<script>
+/* 이용 통계(구글 애널리틱스): 버튼 클릭만 셈. 이름·대화 내용 등 개인정보는 보내지 않음 */
+(function(){
+  function ev(n,p){try{if(window.gtag)gtag('event',n,p||{});}catch(e){}}
+  window.msqEvent=ev;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(a){var h=a.href;
+      if(/talk\.naver\.com/.test(h))ev('consult_click',{method:'naver_talk',site:'library'});
+      else if(/pf\.kakao\.com/.test(h))ev('consult_click',{method:'kakao',site:'library'});
+      else if(/talk\.maumsoop\.com/.test(h))ev('talk_click',{site:'library'});
+      else if(/\/join(\?|$)/.test(h))ev('membership_click',{site:'library'});
+      else if(/forms\.gle|docs\.google\.com\/forms/.test(h))ev('form_click',{site:'library',link_url:h});
+      else if(/naver\.me|map\.naver/.test(h))ev('map_click',{site:'library'});
+      else if(/maumsoop\.com/.test(h)&&a.hostname!==location.hostname)ev('site_link_click',{site:'library',link_url:h});
+    }
+    var b=e.target.closest&&e.target.closest('[data-play]');
+    if(b)ev('video_play',{site:'library',video_id:b.dataset.play,video_title:(b.dataset.title||'').slice(0,90)});
+    var n=e.target.closest&&e.target.closest('[data-notice]');
+    if(n)ev('notice_open',{site:'library',notice_title:(n.getAttribute('aria-label')||n.innerText||'').trim().slice(0,90)});
+  },true);
+  var s=document.getElementById('searchInput'),t;
+  if(s)s.addEventListener('input',function(){clearTimeout(t);t=setTimeout(function(){var q=s.value.trim();if(q.length>=2)ev('search',{search_term:q.slice(0,40),site:'library'});},2000);});
+  var wrap=function(name,fn){var o=window[name];if(typeof o!=='function')return;window[name]=function(){try{fn.apply(null,arguments);}catch(e){}return o.apply(this,arguments);};};
+  wrap('openModal',function(id,title){ev('video_play',{site:'library',video_id:id,video_title:String(title||'').slice(0,90)});});
+  wrap('copyCounsel',function(){ev('counsel_copy',{site:'library'});});
+  wrap('openMemberSheet',function(){ev('member_video_click',{site:'library'});});
+  wrap('copyLinkOnly',function(id){ev('link_copy',{site:'library',video_id:id});});
+})();
+</script>
 </body>
 </html>
