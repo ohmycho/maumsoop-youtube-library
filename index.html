@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!--
   마음숲 라이브러리 (예전 이름: 마음숲 영상 라이브러리)
-  버전: v1.6.2 (2026-11-18) — 빨리 뜨게: 휴대폰에 화면 저장(sw.js)
+  버전: v1.6.3 (2026-11-21) — 검색 키워드 '분당 심리코칭·분당 심리상담·분당 마음숲': 제목·설명·키워드·구조화 데이터·canonical, 검색창 아래 한 줄
+  v1.6.2 (2026-11-18) — 빨리 뜨게: 휴대폰에 화면 저장(sw.js)
   v1.6.1 (2026-11-18) — 구글 애널리틱스(G-8RPRY677HC): 방문·영상 재생·문구 복사·토크 연결 클릭 수
   v1.6 (2026-11-16)
   v1.6 마음숲 토크 연결: 검색창 위 한 줄 안내, 영상 창 아래 '털어놓기' 버튼(보던 영상을 토크에 전달, 들어온 길 from=library)
@@ -20,8 +21,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="version" content="v1.6.2">
-  <title>마음숲 라이브러리</title>
+  <meta name="version" content="v1.6.3">
+  <title>마음숲 라이브러리 | 분당 마음숲심리코칭 고민별 영상 · 분당 심리상담·심리코칭</title>
+  <meta name="description" content="분당 마음숲심리코칭(분당 심리상담·분당 심리코칭)의 영상 400여 개를 등교거부·스마트폰·무기력·부모 내면치유 등 우리 집 고민별로 찾아보세요. 김지연 박사와 마음숲 코치들의 무료 영상 모음.">
+  <meta name="keywords" content="분당 심리코칭, 분당 심리상담, 분당 마음숲, 마음숲심리코칭, 마음숲, 분당 정자동 심리상담, 분당 부모상담, 분당 청소년상담, 김지연 박사">
+  <link rel="canonical" href="https://library.maumsoop.com/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "CollectionPage",
+   "@id": "https://library.maumsoop.com/#page",
+   "url": "https://library.maumsoop.com/",
+   "name": "마음숲 라이브러리",
+   "description": "분당 마음숲심리코칭(분당 심리상담·분당 심리코칭)의 영상 400여 개를 등교거부·스마트폰·무기력·부모 내면치유 등 우리 집 고민별로 찾아보세요. 김지연 박사와 마음숲 코치들의 무료 영상 모음.",
+   "inLanguage": "ko-KR",
+   "publisher": {
+    "@id": "https://maumsoop.com/#org"
+   },
+   "about": {
+    "@id": "https://maumsoop.com/#org"
+   }
+  },
+  {
+   "@type": [
+    "Organization",
+    "ProfessionalService"
+   ],
+   "@id": "https://maumsoop.com/#org",
+   "name": "마음숲심리코칭",
+   "alternateName": [
+    "마음숲",
+    "분당 마음숲",
+    "분당 마음숲심리코칭"
+   ],
+   "url": "https://maumsoop.com/",
+   "telephone": "+82-31-205-5015",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "정자일로 121, 더 샾 스타파크 2층 G02호",
+    "addressLocality": "성남시 분당구",
+    "addressRegion": "경기도",
+    "addressCountry": "KR"
+   },
+   "keywords": "분당 심리코칭, 분당 심리상담, 분당 마음숲"
+  }
+ ]
+}
+</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -29,7 +78,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="마음숲심리코칭">
 <meta property="og:title" content="마음숲 라이브러리">
-<meta property="og:description" content="400개가 넘는 마음숲 영상을 우리 집 고민별로 찾아보세요.">
+<meta property="og:description" content="분당 마음숲심리코칭의 영상 400여 개를 우리 집 고민별로 찾아보세요.">
 <meta property="og:url" content="https://library.maumsoop.com">
 <meta property="og:image" content="https://library.maumsoop.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -75,7 +124,8 @@
             class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-sm font-bold">✕</button>
         </div>
         <p class="mt-2 text-xs text-slate-500">예: 등교거부, 스마트폰, 자존감 · 입력하면 바로 검색됩니다.</p>
-        <p style="margin-top:4px;font-size:10px;color:#94a3b8;">v1.6.2 · 2026.11.18 · 이용 통계: 구글 애널리틱스</p>
+        <p style="margin-top:6px;font-size:12px;color:#64748b;">분당 심리상담·분당 심리코칭 <a href="https://maumsoop.com/" style="color:#2F5D46;font-weight:600">분당 마음숲</a> · 031-205-5015</p>
+        <p style="margin-top:4px;font-size:10px;color:#94a3b8;">v1.6.3 · 2026.11.21 · 이용 통계: 구글 애널리틱스</p>
       </div>
 
       <!-- 2. 모바일용 필터 토글 버튼 (모바일에서만 노출) -->

@@ -1,0 +1,6 @@
+# 마음숲 라이브러리 (library.maumsoop.com) · v1.0 (2026-11-21)
+# 분당 마음숲심리코칭 — 검색엔진·AI 검색 모두 허용
+User-agent: *
+Allow: /
+
+Sitemap: https://library.maumsoop.com/sitemap.xml
